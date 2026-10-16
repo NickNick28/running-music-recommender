@@ -29,29 +29,36 @@ The presentation includes a Flutter app demonstration with preference input, run
 
 ### Recommendation Workflow (Model-Level Prototype)
 
-```text
-User's listening-frequency preferences (16 genres)
-                   |
-                   v
-          Model 1: Genre ranking
-                   |
-             Top-3 genres
-                   |
-                   +-------------------------+
-                                             |
-Workout plan -> predefined E/M/T/I/R zones  |
-        |                                    |
-        v                                    v
-Target cadence/SPM -> target music BPM    Genre preference score
-        |                                    |
-        +------------------+-----------------+
-                           |
-                           v
-                 Model 2: Score and rank
-                           |
-                           v
-              Workout-block playlist output
+```mermaid
+flowchart TD
+    A["User Listening Preferences<br/>(16 Genres)"]
+    B["Model 1<br/>Genre Ranking"]
+    C["Top-3 Recommended Genres"]
+    D["Workout Plan<br/>Predefined E / M / T / I / R Zones"]
+    E["Target Cadence (SPM)"]
+    F["Target Music BPM"]
+    G["Genre Preference Score"]
+    H["Model 2<br/>Score and Rank Tracks"]
+    I["Workout-Block Playlist Output"]
+
+    A --> B
+    B --> C
+    C --> G
+    D --> E
+    E --> F
+    F --> H
+    G --> H
+    H --> I
+
+    classDef input fill:#eaf2ff,stroke:#4678c8,color:#193c71
+    classDef model fill:#e7f5ec,stroke:#399767,color:#165a38
+    classDef output fill:#fff1d8,stroke:#c58a31,color:#704c13
+
+    class A,D input
+    class B,H model
+    class C,I output
 ```
+
 
 **Important distinction:** Heart rate (HR) is used to communicate or monitor exercise intensity targets. **The implemented BPM-matching logic is based on predefined cadence/SPM-to-BPM mappings, not direct HR-to-BPM conversion or real-time HR-driven track switching.**
 
